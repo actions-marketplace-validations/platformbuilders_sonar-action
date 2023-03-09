@@ -1,0 +1,22 @@
+name: 'Builders Sonar Analyze'
+description: 'Analyze code using Sonar Qube of the Platform Builders'
+branding:
+  icon: check
+  color: green
+inputs:
+  SONAR_TOKEN:
+    description: 'Token of the Platform Builders server'
+    required: true
+  SONAR_HOST_URL:
+    description: 'Host URL of the Platform Builders server'
+    required: true
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - uses: sonarsource/sonarqube-scan-action@master
+      env:
+        SONAR_TOKEN: ${{ inputs.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ inputs.SONAR_HOST_URL }}
